@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motivação do Dia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: background-color 0.5s ease; /* Adiciona transição suave */
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+
+        .verse {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #3e8e41;
+        }
+
+        .socram-food {
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body id="body">
+    <div class="container">
+        <button onclick="displayVerse()" id="versiculoButton">Motivção do dia</button>
+        <div class="verse" id="verse"></div>
+        <div class="socram-food">@socram_food</div>
+        <div class="buttons">
+            <button onclick="window.location.href='https://www.instagram.com/socram_food?igsh=ZHBhNTQ3M2VidzFm';">Instagram</button>
+            <button onclick="window.location.href='https://wa.me/message/2TAJJSC4IXLWP1';">WhatsApp</button>
+        </div>
+    </div>
+
+    <script>
+        const verses = [
+            "Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito, para que todo aquele que nele crê não pereça, mas tenha a vida eterna. João 3:16",
+            "Comece onde você está, use o que você tem e faça o que você pode.",
+            "Existe apenas um canto do universo que você pode ter certeza de aperfeiçoar, que é você mesmo.",
+            "Posso todas as coisas naquele que me fortalece.Filipenses 4:13",
+            "Ação sempre gera inspiração. Inspiração raramente gera ação.",
+            "Porque sou eu que conheço os planos que tenho para vocês’, diz o Senhor, ‘planos de fazê-los prosperar e não de causar dano, planos de dar a vocês esperança e um futuro. Jeremias 29:11",
+            "Existe dentro de si uma força capaz de mudar sua vida. Basta que lute e aguarde um novo amanhecer.",
+            "Ninguém o despreze por você ser jovem, mas seja um exemplo para os fiéis na palavra, no comportamento, no amor, na fé e na pureza. 1 Timóteo 4:12",
+            "Tudo o que um sonho precisa é alguém que acredite que ele possa ser realizado.",
+            "Como pode o jovem manter pura a sua conduta? Vivendo de acordo com a tua palavra. Salmos 119:9",
+            "Aprenda com o ontem. Viva o hoje. Tenha esperança para o amanhã.",
+            "Confie no Senhor de todo o seu coração e não se apoie em seu próprio entendimento; reconheça o Senhor em todos os seus caminhos, e ele endireitará as suas veredas. Provérbios 3:5-6",
+            "Não importa que você vá devagar, contanto que você não pare.",
+            "Não to mandei eu? Esforça-te, e tem bom ânimo; não pasmes, nem te espantes; porque o Senhor, teu Deus, é contigo, por onde quer que andares. Josué 1:9",
+            "Não há atalhos para nenhum destino onde se vale a pena chegar.",
+            "Porque Deus não nos deu espírito de covardia, mas de poder, de amor e de equilíbrio. 2 Timóteo 1:7",
+            "A inspiração existe, porém temos que encontrá-la trabalhando.",
+            "E não vos conformeis com este mundo, mas transformai-vos pela renovação da vossa mente, para que experimenteis qual seja a boa, agradável e perfeita vontade de Deus. Romanos 12:2",
+            "Não extinga sua inspiração e sua imaginação; não se torne o escravo do seu modelo.",
+            "Mas aqueles que esperam no Senhor renovarão as suas forças. Voarão alto como águias; correrão e não ficarão exaustos, andarão e não se cansarão. Isaías 40:31",
+            "Conhecer a si mesmo é o começo de toda sabedoria.",
+            "Tudo quanto fizerdes, fazei-o de todo o coração, como para o Senhor e não para homens, cientes de que recebereis do Senhor a recompensa da herança. A Cristo, o Senhor, é que estais servindo. Colossenses 3:23-24",
+            "Saber encontrar a alegria na alegria dos outros, é o segredo da felicidade.",
+            "Todas as vossas coisas sejam feitas com amor. 1 Coríntios 16:14",
+            "Acredite em milagres, mas não dependa deles.",
+            "Vós sois de Deus e tendes vencido os falsos profetas, porque maior é aquele que está em vós do que aquele que está no mundo. 1 João 4:4",
+            "A simplicidade é o último grau de sofisticação.",
+            "Mas buscai primeiro o Reino de Deus, e a sua justiça, e todas estas coisas vos serão acrescentadas. Mateus 6:33",
+            "Não é a carga que o derruba, mas a maneira como você a carrega.",
+            "Confia ao Senhor as tuas obras, e teus pensamentos serão estabelecidos. Provérbios 16:3",
+            "A mentira nunca vive o suficiente para envelhecer.",
+            "Que diremos, pois, à vista destas coisas? Se Deus é por nós, quem será contra nós? Romanos 8:31",
+            "Não existe nada de completamente errado no mundo, mesmo um relógio parado, consegue estar certo duas vezes por dia.",
+            "O coração do homem traça o seu caminho, mas o Senhor lhe dirige os passos. Provérbios 16:9",
+            "De que me adianta temer o que já aconteceu?",
+            "Tão somente sê forte e mui corajoso para teres o cuidado de fazer segundo toda a lei que meu servo Moisés te ordenou; dela não te desvies, nem para a direita nem para a esquerda, para que sejas bem-sucedido por onde quer que andares. Josué 1:7",
+            "Um livro, uma caneta, uma criança e um professor podem mudar o mundo.",
+            "Descubra quem é você, e seja essa pessoa. A sua alma foi colocada nesse mundo para ser isso, então viva essa verdade e todo resto virá.",
+            "Portanto, meus amados irmãos, sede firmes e constantes, sempre abundantes na obra do Senhor, sabendo que, no Senhor, o vosso trabalho não é vão. 1 Coríntios 15:58",
+            "Não existe nada de completamente errado no mundo, mesmo um relógio parado, consegue estar certo duas vezes por dia.",
+            "Nada façais por contenda ou por vanglória, mas por humildade, cada um considerando os outros superiores a si mesmo. Não atente cada um para o que é propriamente seu, mas cada qual também para o que é dos outros. Filipenses 2:3-4",
+            "A felicidade não é algo pronto. Ela é feita das suas próprias ações.",
+            "Pastoreai o rebanho de Deus, que está entre vós, não por força, mas espontaneamente, segundo a vontade de Deus; nem por torpe ganância, mas de ânimo pronto; nem como dominadores sobre os que vos foram confiados, antes, tornando-vos modelos do rebanho. 1 Pedro 5:2-3",
+            "Nossa maior fraqueza está em desistir. O caminho mais certo de vencer é tentar mais uma vez.",
+            "Onde não há conselho, frustram-se os projetos, mas, com a multidão de conselheiros, se confirmam. Provérbios 11:14",
+            "Mude o modo que você olha para as coisas, e as coisas que você olha mudarão.",
+            "Não sejais vagarosos no cuidado; sede fervorosos no espírito, servindo ao Senhor. Romanos 12:11",
+            "Um homem criativo é motivado pelo desejo de alcançar, não pelo desejo de vencer os outros.",
+            "Tudo quanto fizerdes, fazei-o de todo o coração, como para o Senhor e não para homens. Colossenses 3:23",
+            "Viver é acalentar sonhos e esperanças, fazendo da fé a nossa inspiração maior. É buscar nas pequenas coisas, um grande motivo para ser feliz!",
+            "Tendo o cuidado de fazer o que é honesto, não só perante o Senhor, mas também diante dos homens. 2 Coríntios 8:21",
+            "As conquistas dependem de 50% de inspiração, criatividade e sonhos, e 50% de disciplina, trabalho árduo e determinação. São duas pernas que devem caminhar juntas.",
+            "Os projetos fracassam pela falta de conselhos, mas são bem-sucedidos quando há muitos conselheiros. Provérbios 15:22",
+            "Cada segundo é tempo para mudar tudo para sempre,",
+            "E, se algum de vós tem falta de sabedoria, peça-a a Deus, que a todos dá liberalmente e não o lança em rosto; e ser-lhe-á dada. Tiago 1:5",
+            "Existe apenas um canto do universo que você pode ter certeza de aperfeiçoar, que é você mesmo.",
+            "Lembrai-vos dos vossos guias, que vos pregaram a palavra de Deus, e, atentando para o êxito da sua carreira, imitai a fé que tiveram. Hebreus 13:7",
+            "Gostaria que você soubesse que existe dentro de si uma força capaz de mudar sua vida. Basta que lute e aguarde um novo amanhecer.",
+            "Não será assim entre vós; mas todo aquele que quiser entre vós fazer-se grande, que seja vosso serviçal. Mateus 20:26",
+            "A paz vem de dentro de você mesmo. Não a procure à sua volta.",
+            "Fiel é a palavra: se alguém aspira ao episcopado, excelente obra almeja. 1 Timóteo 3:1",
+            "Até cortar os próprios defeitos pode ser perigoso. Nunca se sabe qual é o defeito que sustenta nosso edifício inteiro.",
+            "Ora, além disso, o que se requer dos despenseiros é que cada um deles seja encontrado fiel. 1 Coríntios 4:2",
+            "Aprenda com o ontem. Viva o hoje. tenha esperança para o amanhã.",
+            "Porque Deus não nos deu espírito de covardia, mas de poder, de amor e de moderação. 2 Timóteo 1:7",
+            "Não há atalhos para nenhum destino onde se vale a pena chegar.",
+            "Vinde a mim, todos os que estais cansados e oprimidos, e eu vos aliviarei. Mateus 11:28",
+            "Não se deixe intimidar pela opinião dos outros. Só a mediocridade é segura, por isso corra seus riscos e faça o que deseja.",
+            "Elevo os olhos para os montes; de onde me vem o socorro? O meu socorro vem do Senhor, que fez o céu e a terra. Salmos 121:1-2",
+            "Não extinga sua inspiração e sua imaginação; não se torne o escravo do seu modelo",
+            "Prossigo para o alvo, para o prêmio da soberana vocação de Deus em Cristo Jesus. Filipenses 3:14",
+            "Saber encontrar a alegria na alegria dos outros, é o segredo da felicidade.",
+            "A primavera chegará, mesmo que ninguém mais saiba seu nome, nem acredite no calendário, nem possua jardim para recebê-la.",
+            "A simplicidade é o último grau de sofisticação.",
+            "A mentira nunca vive o suficiente para envelhecer.",
+            "De que me adianta temer o que já aconteceu? O tempo do medo já aconteceu, agora, começa o tempo da esperança.",
+            "Não há nada como regressar a um lugar que está igual para descobrir o quanto a gente mudou.",
+            "Sonhar é verbo: é seguir, é pensar, inspirar e fazer força, insistir, é lutar, transpirar. São mil verbos que vem antes do verbo realizar.",
+            "Sábio é aquele que conhece os limites da própria ignorância.",
+            "Um dia, quando olhares para trás, verás que os dias mais belos foram aqueles em que lutaste.",
+            "Maravilhas nunca faltaram ao mundo; o que sempre falta é a capacidade de senti-las e admirá-las.",
+            "Qualquer pessoa de sucesso sabe que é uma peça importante, mas sabe que não conseguirá nada sozinho.",
+            "A vitalidade é demonstrada não apenas pela persistência, mas pela capacidade de começar de novo.",
+            "A vida se contrai e se expande proporcionalmente à coragem do indivíduo.",
+            "Se a montanha que você está subindo parece cada vez mais imponente é sinal que você está mais próximo ao topo.",
+        ];
+
+        function getRandomVerse() {
+            const randomIndex = Math.floor(Math.random() * verses.length);
+            return verses[randomIndex];
+        }
+
+        function displayVerse() {
+            const randomVerse = getRandomVerse();
+            document.getElementById('verse').textContent = randomVerse;
+            changeBackgroundColor(); // Chama a função para mudar a cor de fundo
+        }
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function changeBackgroundColor() {
+            const randomColor = getRandomColor();
+            document.getElementById('body').style.backgroundColor = randomColor;
+        }
+
+        // Chama a função para mudar a cor de fundo ao carregar a página
+        changeBackgroundColor();
+    </script>
+</body>
+</html>
